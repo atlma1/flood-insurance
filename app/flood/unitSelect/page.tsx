@@ -3,11 +3,21 @@ import { useState } from "react";
 import YesOrNo from "../../../components/flood/floodZone/yesOrNo";
 import Title from "../../../components/title";
 import Dropdown from "../../../components/dropdown";
+import NumberInput from "../../../components/numberInput";
+import Button from "../../../components/button";
+import { useRouter } from "next/navigation";
 
 const UnitSelectPage = () => {
   const options = ["Occupied", "Vacant", "Owner Occupied"];
   const [Occupied, setOccupied] = useState<string>("");
   const [yesOrNo, setYesOrNo] = useState<number>(-1);
+  const [numberOfUnits, setNumberOfUnits] = useState<number>(0);
+  const router = useRouter();
+
+  const onContinue = () => {
+    router.push("./insurableValue");
+  };
+
   return (
     <div>
       <Title title="Is this a condo with multiple units?" />
@@ -33,6 +43,17 @@ const UnitSelectPage = () => {
           styles="mt-[49px]"
         />
       )}
+      {yesOrNo == 0 && (
+        <NumberInput
+          label="Number of units"
+          value={numberOfUnits}
+          setValue={setNumberOfUnits}
+          styles="mt-[49px]"
+          unit="units"
+        />
+      )}
+      {(yesOrNo == 1 || (yesOrNo == 0 && numberOfUnits > 0)) &&
+        Occupied != "" && <Button label="Next" styles="mt-[49px]" onClick={onContinue} />}
     </div>
   );
 };

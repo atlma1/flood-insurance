@@ -1,5 +1,6 @@
 import { FC } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface ProgressBarProps {
   progress: number;
@@ -7,17 +8,26 @@ interface ProgressBarProps {
 
 const ProgressBar: FC<ProgressBarProps> = ({ progress }) => {
   const total = 7;
+  const router = useRouter();
+
+  const onBack = () => {
+    router.back();
+  }
+
   return (
     <div className="flex-row flex items-center absolute bottom-10 gap-6">
       {progress > 1 && progress < 7 && (
         <div className="flex-row flex bg-background p-[11px] rounded-[19px] gap-[10px]">
-          <Image
-            src="/icons/chevronIcon.svg"
-            alt="chevron"
-            width={16}
-            height={16}
-            className="rotate-90"
-          />
+          <button onClick={onBack}>
+            <Image
+              src="/icons/chevronIcon.svg"
+              alt="chevron"
+              width={16}
+              height={16}
+              className="rotate-90"
+            />
+          </button>
+
           <Image
             src="/icons/chevronIcon.svg"
             alt="chevron"

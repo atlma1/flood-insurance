@@ -20,13 +20,11 @@ const Dropdown: FC<DropdownProps> = ({
 }) => {
   return (
     <div className={`${styles}`}>
-      {
-        label && <Label label={label} />
-      }
+      {label && <Label label={label} />}
       <select
         value={selected}
         onChange={(e) => setSelected(e.target.value)}
-        className={`flex flex-row items-center rounded-[17px] w-[246px]
+        className={`flex flex-row items-center rounded-[17px] w-[246px] outline-none
        h-[53px] py-[12px] pl-[14px] bg-background ${
          selected == "" ? "text-unfilled" : "text-white"
        } ${label ? "mt-[13px]" : ""}`}

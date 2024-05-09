@@ -26,7 +26,9 @@ const Button: FC<ButtonProps> = ({
       }  ${styles}`}
       onClick={onClick}
     >
-      {icon && <Image src={icon} alt="icon" height={17} width={17} />}
+      {icon && (
+        <Image src={icon} alt="icon" height={24} width={24} className="mr-[14px]" />
+      )}
       <p
         className={`${
           textColor ? textColor : "text-black"
