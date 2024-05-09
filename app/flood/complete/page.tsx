@@ -38,4 +38,4 @@ const CompletePage = () => {
   );
 };
 
-export default completePage;
+export default CompletePage;
