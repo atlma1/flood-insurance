@@ -1,12 +1,16 @@
 import { FC } from "react";
 import Image from "next/image";
+import PropertySelect from "../../../components/flood/propertyType/propertySelect";
+import Title from "../../../components/title";
 
 const PropertyTypePage: FC = () => {
   return (
-    <div>
-      <h1 className=" font-inter font-semibold text-[36px]">
-        What type of property is this?
-      </h1>
+    <div className="flex items-center flex-col">
+     <Title title="What type of property is this?" />
+      <div className="flex flex-row gap-[56px] mt-[132px]">
+        <PropertySelect name="Residential" icon="/icons/residentialIcon.svg" />
+        <PropertySelect name="Commercial" icon="/icons/commercialIcon.svg" />
+      </div>
     </div>
   );
 };
