@@ -6,7 +6,7 @@ import Image from "next/image";
 import Button from "../../../components/button";
 import { useRouter } from "next/navigation";
 
-const loanDetailsPage = () => {
+const LoanDetailsPage = () => {
   const [loanAmount, setLoanAmount] = useState<number>(0);
   const [lienAmount, setLienAmount] = useState<number[]>([0]);
   const router = useRouter();
@@ -66,4 +66,4 @@ const loanDetailsPage = () => {
   );
 };
 
-export default loanDetailsPage;
+export default LoanDetailsPage;

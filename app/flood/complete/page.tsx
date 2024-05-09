@@ -4,7 +4,7 @@ import Button from "../../../components/button";
 import Title from "../../../components/title";
 import Image from "next/image";
 
-const completePage = () => {
+const CompletePage = () => {
   const router = useRouter();
 
   const onRestart = () => {
@@ -30,8 +30,8 @@ const completePage = () => {
         <Button
           label="Restart"
           icon="/icons/restartIcon.svg"
-                  onClick={onRestart}
-                  bgColor="bg-white"
+          onClick={onRestart}
+          bgColor="bg-white"
         />
       </div>
     </div>
