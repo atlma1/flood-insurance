@@ -8,7 +8,26 @@ import Button from "../../../components/button";
 import { useRouter } from "next/navigation";
 
 const FloodZonePage = () => {
-  const options = ["A", "AE", "VE"];
+  const options = [
+    "A",
+    "AO",
+    "AH",
+    "A1-A30",
+    "AE",
+    "A99",
+    "AR",
+    "AR/AE",
+    "AR/AO",
+    "AR/A1-A30",
+    "AR/A",
+    "V",
+    "VE",
+    "V1-V30",
+    "B",
+    "X_shaded",
+    "C",
+    "X",
+  ];
   const [floodZone, setFloodZone] = useState<string>("");
   const [touched, setTouched] = useState<boolean>(false);
   const router = useRouter();

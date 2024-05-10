@@ -21,13 +21,19 @@ const Button: FC<ButtonProps> = ({
 }) => {
   return (
     <button
-      className={`flex flex-row items-center justify-center w-[193px] h-[58px] rounded-[27px] ${
+      className={`flex flex-row items-center justify-center w-[170px] h-[51px] rounded-[27px] ${
         bgColor ? bgColor : "bg-lime"
       }  ${styles}`}
       onClick={onClick}
     >
       {icon && (
-        <Image src={icon} alt="icon" height={24} width={24} className="mr-[14px]" />
+        <Image
+          src={icon}
+          alt="icon"
+          height={24}
+          width={24}
+          className="mr-[14px]"
+        />
       )}
       <p
         className={`${

@@ -4,6 +4,11 @@ import { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import ProgressBar from "../../components/progressBar";
 import { usePathname } from "next/navigation";
+import { Formik, Form } from "formik";
+import React from "react";
+import * as Yup from "yup";
+import { emptyForm } from "./form";
+import { formValidationSchema } from "./validation";
 
 interface FloodLayoutProps {
   children: React.ReactNode;
@@ -27,6 +32,7 @@ const FloodLayout: FC<FloodLayoutProps> = ({ children }) => {
     setProgress(routeMap[path]);
   }, [path]);
 
+
   return (
     <div className=" justify-center items-center flex flex-col w-full h-full">
       <Image
@@ -36,7 +42,22 @@ const FloodLayout: FC<FloodLayoutProps> = ({ children }) => {
         objectFit="cover"
         className="absolute -z-10 top-0"
       />
-      <div className="">{children}</div>
+      <Formik
+        initialValues={emptyForm}
+        validationSchema={formValidationSchema}
+        onSubmit={(values, actions) => {
+          console.log(values);
+        }}
+      >
+        {(formikProps) => (
+          <Form>
+            {React.Children.map(children, (child) => {
+              // Cloning each child with Formik props
+              return React.cloneElement(child, { formik: formikProps });
+            })}
+          </Form>
+        )}
+      </Formik>
       <ProgressBar progress={progress} />
     </div>
   );

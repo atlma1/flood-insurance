@@ -8,8 +8,6 @@ import Button from "../../../components/button";
 import { useRouter } from "next/navigation";
 
 const UnitSelectPage = () => {
-  const options = ["Occupied", "Vacant", "Owner Occupied"];
-  const [Occupied, setOccupied] = useState<string>("");
   const [yesOrNo, setYesOrNo] = useState<number>(-1);
   const [numberOfUnits, setNumberOfUnits] = useState<number>(0);
   const router = useRouter();
@@ -33,16 +31,6 @@ const UnitSelectPage = () => {
         selected={yesOrNo}
         setSelected={setYesOrNo}
       />
-      {yesOrNo != -1 && (
-        <Dropdown
-          options={options}
-          selected={Occupied}
-          setSelected={setOccupied}
-          placeholder="Select occupancy status"
-          label="Occupancy status"
-          styles="mt-[49px]"
-        />
-      )}
       {yesOrNo == 0 && (
         <NumberInput
           label="Number of units"
@@ -52,8 +40,9 @@ const UnitSelectPage = () => {
           unit="units"
         />
       )}
-      {(yesOrNo == 1 || (yesOrNo == 0 && numberOfUnits > 0)) &&
-        Occupied != "" && <Button label="Next" styles="mt-[49px]" onClick={onContinue} />}
+      {(yesOrNo == 1 || (yesOrNo == 0 && numberOfUnits > 0)) && (
+        <Button label="Next" styles="mt-[49px]" onClick={onContinue} />
+      )}
     </div>
   );
 };

@@ -55,7 +55,7 @@ const NumberInput: FC<NumberInputProps> = ({
         } `}
       >
         <input
-          value={value}
+          value={`${unit == 'USD' ? '$' : ''}${value.toLocaleString()}`}
           className={` placeholder-unfilled bg-transparent h-[100%] w-[86%] font-inter outline-none text-white
         }`}
           onChange={(e) => {
