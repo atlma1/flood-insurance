@@ -22,7 +22,7 @@ export type formType = {
   };
   loanDetails: {
     loanAmount: number;
-    SuperiorLieans: number[];
+    superiorLieans: number[];
   };
   policyDetails: {
     RequiredCoverage: number;
@@ -58,7 +58,7 @@ export const emptyForm: formType = {
   },
   loanDetails: {
     loanAmount: 0,
-    SuperiorLieans: [],
+    superiorLieans: [],
   },
   policyDetails: {
     RequiredCoverage: 0,

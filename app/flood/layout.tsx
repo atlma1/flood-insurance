@@ -6,7 +6,6 @@ import ProgressBar from "../../components/progressBar";
 import { usePathname } from "next/navigation";
 import { Formik, Form } from "formik";
 import React from "react";
-import * as Yup from "yup";
 import { emptyForm } from "./form";
 import { formValidationSchema } from "./validation";
 
@@ -32,9 +31,14 @@ const FloodLayout: FC<FloodLayoutProps> = ({ children }) => {
     setProgress(routeMap[path]);
   }, [path]);
 
+  // Load initial form state from localStorage
+  const loadFormState = () => {
+    const savedState = localStorage.getItem("formikState");
+    return savedState ? JSON.parse(savedState) : emptyForm;
+  };
 
   return (
-    <div className=" justify-center items-center flex flex-col w-full h-full">
+    <div className="relative items-center flex flex-col pb-[150px] min-h-screen w-screen">
       <Image
         src="/images/background.jpeg"
         alt="background"
@@ -43,20 +47,31 @@ const FloodLayout: FC<FloodLayoutProps> = ({ children }) => {
         className="absolute -z-10 top-0"
       />
       <Formik
-        initialValues={emptyForm}
+        initialValues={loadFormState()}
         validationSchema={formValidationSchema}
         onSubmit={(values, actions) => {
           console.log(values);
+          localStorage.setItem("formikState", JSON.stringify(values));
         }}
+        enableReinitialize
       >
-        {(formikProps) => (
-          <Form>
-            {React.Children.map(children, (child) => {
-              // Cloning each child with Formik props
-              return React.cloneElement(child, { formik: formikProps });
-            })}
-          </Form>
-        )}
+        {(formikProps) => {
+          useEffect(() => {
+            localStorage.setItem(
+              "formikState",
+              JSON.stringify(formikProps.values)
+            );
+          }, [formikProps.values]);
+          return (
+            <Form>
+              {React.Children.map(children, (child) => {
+                // Cloning each child with Formik props
+                //@ts-ignore
+                return React.cloneElement(child, { formik: formikProps });
+              })}
+            </Form>
+          );
+        }}
       </Formik>
       <ProgressBar progress={progress} />
     </div>

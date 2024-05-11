@@ -5,17 +5,27 @@ import Title from "../../../components/title";
 import Image from "next/image";
 import Button from "../../../components/button";
 import { useRouter } from "next/navigation";
+import { useFormikContext, FormikValues } from "formik";
 
 const LoanDetailsPage = () => {
-  const [loanAmount, setLoanAmount] = useState<number>(0);
-  const [lienAmount, setLienAmount] = useState<number[]>([0]);
+  const { values, setFieldValue } = useFormikContext<FormikValues>();
   const router = useRouter();
 
   const addLienAmount = () => {
-    const newLienAmount = [...lienAmount];
+    if (!values.loanDetails.superiorLieans) {
+      setFieldValue("loanDetails.superiorLieans", [0]);
+      return;
+    }
+    const newLienAmount = [...values.loanDetails.superiorLieans];
     newLienAmount.push(0);
-    setLienAmount(newLienAmount);
+    setFieldValue("loanDetails.superiorLieans", newLienAmount);
   };
+
+  const removeLienAmount = (index: number) => {
+    const newLienAmount = [...values.loanDetails.superiorLieans];
+    newLienAmount.splice(index, 1);
+    setFieldValue("loanDetails.superiorLieans", newLienAmount);
+  }
 
   const onContinue = () => {
     router.push("./requiredCoverage");
@@ -26,25 +36,41 @@ const LoanDetailsPage = () => {
       <Title title="Enter loan details" />
       <NumberInput
         label="Loan amount"
-        value={loanAmount}
-        setValue={setLoanAmount}
+        value={values.loanDetails.loanAmount}
+        setValue={(value) => setFieldValue("loanDetails.loanAmount", value)}
         unit="USD"
         styles="mt-[53px]"
       />
-      {lienAmount.map((amount, index) => (
-        <NumberInput
-          key={index}
-          label={`Superior lien amount ${index == 0 ? "(if applicable)" : ""}`}
-          value={amount}
-          setValue={(value) => {
-            const newLienAmount = [...lienAmount];
-            newLienAmount[index] = value;
-            setLienAmount(newLienAmount);
-          }}
-          unit="USD"
-          styles="mt-[44px]"
-        />
-      ))}
+      {values.loanDetails.superiorLieans?.map(
+        (amount: number, index: number) => (
+          <div className="relative">
+            <NumberInput
+              key={index}
+              label={`Superior lien amount ${
+                index == 0 ? "(if applicable)" : ""
+              }`}
+              value={amount}
+              setValue={(value) => {
+                const newLienAmount = [...values.loanDetails.superiorLieans];
+                newLienAmount[index] = value;
+                setFieldValue("loanDetails.superiorLieans", newLienAmount);
+              }}
+              unit="USD"
+              styles="mt-[44px]"
+            />
+            <button className="absolute top-[69px] -left-[35px]"
+            onClick={() => removeLienAmount(index)}
+            >
+              <Image
+                src="/icons/trashIcon.svg"
+                alt="trash"
+                width={20}
+                height={20}
+              />
+            </button>
+          </div>
+        )
+      )}
       <button
         className="flex flex-row gap-[5px] items-center mt-[13px]"
         onClick={addLienAmount}
@@ -59,7 +85,7 @@ const LoanDetailsPage = () => {
           add another
         </p>
       </button>
-      {loanAmount > 0 && (
+      {values.loanDetails.loanAmount > 0 && (
         <Button label="Continue" onClick={onContinue} styles="mt-[49px]" />
       )}
     </div>

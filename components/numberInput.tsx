@@ -41,7 +41,7 @@ const NumberInput: FC<NumberInputProps> = ({
           setValue(value - 1000);
         }
       } else {
-        setValue(value + 1);
+        setValue(value - 1);
       }
     }
   };
@@ -55,16 +55,13 @@ const NumberInput: FC<NumberInputProps> = ({
         } `}
       >
         <input
-          value={`${unit == 'USD' ? '$' : ''}${value.toLocaleString()}`}
+          value={`${unit == 'USD' ? '$' : ''}${value ? value.toLocaleString() : ''}`}
           className={` placeholder-unfilled bg-transparent h-[100%] w-[86%] font-inter outline-none text-white
         }`}
           onChange={(e) => {
             // Filter out non-numeric input
-            const newValue = e.target.value;
-            if (/^\d*$/.test(newValue)) {
-              // Regular expression to allow only digits
-              setValue(Number(newValue));
-            }
+            const newValue = e.target.value.replace(/[^0-9]/g, ""); // Strip all non-numeric characters
+            setValue(parseInt(newValue));
           }}
         />
         {/* {unit && <span className="ml-2 text-white">{unit}</span>}{" "} */}

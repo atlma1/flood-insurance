@@ -1,5 +1,4 @@
 import { FC } from "react";
-import Image from "next/image";
 import PropertySelect from "../../../components/flood/propertyType/propertySelect";
 import Title from "../../../components/title";
 

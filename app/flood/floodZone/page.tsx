@@ -1,11 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
 import Dropdown from "../../../components/dropdown";
 import Title from "../../../components/title";
 import SearchInput from "../../../components/flood/floodZone/searchInput";
 import OrDivider from "../../../components/orDivider";
 import Button from "../../../components/button";
 import { useRouter } from "next/navigation";
+import { FormikValues, useFormikContext } from "formik";
 
 const FloodZonePage = () => {
   const options = [
@@ -28,15 +28,8 @@ const FloodZonePage = () => {
     "C",
     "X",
   ];
-  const [floodZone, setFloodZone] = useState<string>("");
-  const [touched, setTouched] = useState<boolean>(false);
+  const {values, setFieldValue, errors} = useFormikContext<FormikValues>();
   const router = useRouter();
-
-  useEffect(() => {
-    if (floodZone != "") {
-      setTouched(true);
-    }
-  }, [floodZone]);
 
   const handleContinue = () => {
     router.push("./unitSelect");
@@ -49,8 +42,8 @@ const FloodZonePage = () => {
         <div>
           <Dropdown
             options={options}
-            selected={floodZone}
-            setSelected={setFloodZone}
+            selected={values.floodZone}
+            setSelected={(value) => setFieldValue("floodZone", value)}
             placeholder="Select flood zone"
             label="Flood zone"
           />
@@ -61,11 +54,10 @@ const FloodZonePage = () => {
           label="Search address"
           onSearch={(value) => {
             console.log(value);
-            setTouched(true);
           }}
         />
       </div>
-      {touched && (
+      {!errors.floodZone && (
         <div className="w-[100%] flex justify-center">
           <Button
             label="Continue"

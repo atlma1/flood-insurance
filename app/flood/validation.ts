@@ -5,7 +5,7 @@ export const formValidationSchema = Yup.object({
     .oneOf(["residential", "commercial", ""])
     .required("Property type is required"),
   floodZone: Yup.string().required("Flood zone is required"),
-  NumberOfUnits: Yup.number()
+  numberOfUnits: Yup.number()
     .positive("Number of units must be a positive number")
     .required("Number of units is required"),
   insurableValue: Yup.object({
@@ -69,7 +69,7 @@ export const formValidationSchema = Yup.object({
     loanAmount: Yup.number()
       .positive("Loan amount must be a positive number")
       .required("Loan amount is required"),
-    SuperiorLieans: Yup.array().of(
+    superiorLieans: Yup.array().of(
       Yup.number().positive("Superior liens must be positive numbers")
     ),
   }),

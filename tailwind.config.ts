@@ -18,6 +18,8 @@ const config: Config = {
       },
       colors: {
         background: "rgba(255, 255, 255, 0.17)",
+        dark: "rgba(0, 0, 0, 0.26)",
+        medium: "rgba(255, 255, 255, 0.37)",
         lime: "rgb(176, 255, 145)",
         limeBg: "rgba(176, 255, 145, 0.17)",
         unfilled: "rgba(255, 255, 255, 0.44)",
