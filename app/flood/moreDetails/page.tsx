@@ -7,10 +7,12 @@ import Button from "../../../components/button";
 import { useRouter } from "next/navigation";
 
 const MoreDetailsPage = () => {
-  const { values, setFieldValue } = useFormikContext<FormikValues>();
+  const { values, setFieldValue, handleSubmit } =
+    useFormikContext<FormikValues>();
   const router = useRouter();
 
   const onContinue = () => {
+    handleSubmit();
     router.push("./complete");
   };
   return (

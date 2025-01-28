@@ -6,7 +6,7 @@ import ProgressBar from "../../components/progressBar";
 import { usePathname } from "next/navigation";
 import { Formik, Form } from "formik";
 import React from "react";
-import { emptyForm } from "./form";
+import { emptyForm, formType } from "./form";
 import { formValidationSchema } from "./validation";
 
 interface FloodLayoutProps {
@@ -16,15 +16,20 @@ interface FloodLayoutProps {
 const FloodLayout: FC<FloodLayoutProps> = ({ children }) => {
   const [progress, setProgress] = useState(1);
   const path = usePathname();
+  const [contentInsured, setContentInsured] = useState<boolean>(false);
+  const [totalPages, setTotalPages] = useState<number>(9);
 
   const routeMap: { [key: string]: number } = {
     "/flood/propertyType": 1,
     "/flood/floodZone": 2,
     "/flood/unitSelect": 3,
     "/flood/insurableValue": 4,
-    "/flood/loanDetails": 5,
-    "/flood/requiredCoverage": 6,
-    "/flood/complete": 7,
+    "/flood/insurableContent": 5,
+    "/flood/loanDetails": 5 + (contentInsured ? 1 : 0),
+    "/flood/requiredCoverage": 6 + (contentInsured ? 1 : 0),
+    "/flood/insuranceProviders": 7 + (contentInsured ? 1 : 0),
+    "/flood/moreDetails": 8 + (contentInsured ? 1 : 0),
+    "/flood/complete": 9 + (contentInsured ? 1 : 0),
   };
 
   useEffect(() => {
@@ -49,10 +54,8 @@ const FloodLayout: FC<FloodLayoutProps> = ({ children }) => {
       <Formik
         initialValues={loadFormState()}
         validationSchema={formValidationSchema}
-        onSubmit={(values, actions) => {
-          console.log(values);
-          localStorage.setItem("formikState", JSON.stringify(values));
-        }}
+        // the submit function is in complete page
+        onSubmit={() => { }}
         enableReinitialize
       >
         {(formikProps) => {
@@ -62,6 +65,12 @@ const FloodLayout: FC<FloodLayoutProps> = ({ children }) => {
               JSON.stringify(formikProps.values)
             );
           }, [formikProps.values]);
+          useEffect(() => {
+            if (formikProps.values.insurableValue.contentInsured) {
+              setContentInsured(true);
+              setTotalPages(10);
+            }
+          }, [formikProps.values.insurableValue.contentInsured]);
           return (
             <Form>
               {React.Children.map(children, (child) => {
@@ -73,7 +82,7 @@ const FloodLayout: FC<FloodLayoutProps> = ({ children }) => {
           );
         }}
       </Formik>
-      <ProgressBar progress={progress} />
+      <ProgressBar progress={progress} totalPages={totalPages} />
     </div>
   );
 };
