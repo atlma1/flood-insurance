@@ -36,13 +36,15 @@ export async function makeFloodQuote(form: formType) {
     resAndCom["C5"] = { t: "s", v: form.morePolicyDetails.accountNumber };
     resAndCom["C6"] = { t: "s", v: form.morePolicyDetails.applicantName };
 
-    if (form.address !== "") {
-      resAndCom["C9"] = { t: "s", v: form.address };
+    if (form.FEMA && form.FEMA.length > 0 && form.FEMA[0].address !== "") {
+      resAndCom["C9"] = { t: "s", v: form.FEMA[0].address };
     }
 
     resAndCom["C10"] = { t: "s", v: form.propertyType };
     resAndCom["C11"] = { t: "s", v: form.insurableValue.occupancyStatus };
-    resAndCom["C14"] = { t: "s", v: form.floodZone };
+    if (form.FEMA && form.FEMA.length > 0) {
+      resAndCom["C12"] = { t: "s", v: form.FEMA[0].floodZone };
+    }
     
     if (form.insurableValue.hazardPolicyReplacementCost !== 0) {
       resAndCom["C24"] = { t: "n", v: form.insurableValue.hazardPolicyReplacementCost };
