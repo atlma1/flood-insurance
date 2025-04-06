@@ -43,7 +43,7 @@ const LoanDetailsPage = () => {
       />
       {values.loanDetails.superiorLieans?.map(
         (amount: number, index: number) => (
-          <div className="relative">
+          <div className="relative" key={index}>
             <NumberInput
               key={index}
               label={`${index + 1}. Superior lien amount ${

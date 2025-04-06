@@ -75,7 +75,6 @@ const FloodZonePage = () => {
                 setSelected={(value) => {
                   const newFloodZones = [...values.FEMA];
                   newFloodZones[index].floodZone = value;
-                  console.log("newFloodZones", newFloodZones);
                   setFieldValue("FEMA", newFloodZones);
                 }}
                 placeholder="Select flood zone"

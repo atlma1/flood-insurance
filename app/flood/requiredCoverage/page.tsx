@@ -31,7 +31,6 @@ const RequiredCoveragePage = () => {
     }
   };
 
-  console.log('errors', errors.policyDetails);
 
   return (
     <div>

@@ -25,7 +25,6 @@ const NFIPDetails = () => {
   const handleContinue = () => {
     router.push("./unitSelect");
   };
-    console.log(errors.NFIPDetails)
 
   return (
     <div >

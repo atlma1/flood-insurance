@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import ProgressBar from "../../components/progressBar";
 import { usePathname } from "next/navigation";
@@ -23,7 +23,7 @@ const FloodLayout: FC<FloodLayoutProps> = ({ children }) => {
     "/flood/propertyType": 1,
     "/flood/floodZone": 2,
     "/flood/NFIPDetails": 3,
-    "/flood/unitSelect": 4,    
+    "/flood/unitSelect": 4,
     "/flood/insurableValue": 5,
     "/flood/insurableContent": 6,
     "/flood/loanDetails": 6 + (contentInsured ? 1 : 0),
@@ -43,6 +43,19 @@ const FloodLayout: FC<FloodLayoutProps> = ({ children }) => {
     return savedState ? JSON.parse(savedState) : emptyForm;
   };
 
+  // Create a ref to store formik values
+  const formikValuesRef = useRef(null);
+
+  // This effect will run when formikValuesRef.current changes
+  useEffect(() => {
+    if (formikValuesRef.current) {
+      localStorage.setItem(
+        "formikState",
+        JSON.stringify(formikValuesRef.current)
+      );
+    }
+  }, [formikValuesRef.current]);
+
   return (
     <div className="relative items-center flex flex-col pb-[150px] min-h-screen w-screen">
       <Image
@@ -56,22 +69,13 @@ const FloodLayout: FC<FloodLayoutProps> = ({ children }) => {
         initialValues={loadFormState()}
         validationSchema={formValidationSchema}
         // the submit function is in complete page
-        onSubmit={() => { }}
+        onSubmit={() => {}}
         enableReinitialize
       >
         {(formikProps) => {
-          useEffect(() => {
-            localStorage.setItem(
-              "formikState",
-              JSON.stringify(formikProps.values)
-            );
-          }, [formikProps.values]);
-          useEffect(() => {
-            if (formikProps.values.insurableValue.contentInsured) {
-              setContentInsured(true);
-              setTotalPages(10);
-            }
-          }, [formikProps.values.insurableValue.contentInsured]);
+          // Update the ref instead of using hooks directly
+          formikValuesRef.current = formikProps.values;
+
           return (
             <Form>
               {React.Children.map(children, (child) => {
