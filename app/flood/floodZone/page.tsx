@@ -7,6 +7,7 @@ import Button from "../../../components/button";
 import { useRouter } from "next/navigation";
 import { FormikValues, useFormikContext } from "formik";
 import Image from "next/image";
+import { useEffect } from "react";
 
 const FloodZonePage = () => {
   const options = [
@@ -31,6 +32,13 @@ const FloodZonePage = () => {
   ];
   const { values, setFieldValue, errors } = useFormikContext<FormikValues>();
   const router = useRouter();
+
+  // Add useEffect to initialize with one item if empty
+  useEffect(() => {
+    if (!values.FEMA || values.FEMA.length === 0) {
+      setFieldValue("FEMA", [{ floodZone: "", address: "" }]);
+    }
+  }, [values.FEMA, setFieldValue]);
 
   const addFloodZone = () => {
     if (!values.FEMA) {
@@ -62,7 +70,7 @@ const FloodZonePage = () => {
 
   return (
     <div className="flex flex-col">
-      <Title title="Enter your flood zone"/>
+      <Title title="Enter your flood zone" />
 
       <div className="flex flex-row justify-center mt-[30px] gap-[26px]">
         {/* Left column - Flood Zone Dropdowns */}
