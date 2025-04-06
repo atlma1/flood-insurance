@@ -24,10 +24,9 @@ const Dropdown: FC<DropdownProps> = ({
       <select
         value={selected}
         onChange={(e) => setSelected(e.target.value)}
-        className={`flex flex-row items-center rounded-[17px] w-[246px] outline-none
-       h-[53px] py-[12px] pl-[14px] bg-background ${
-         selected == "" ? "text-unfilled" : "text-white"
-       } ${label ? "mt-[13px]" : ""}`}
+        className={`flex flex-row items-center rounded-[17px] w-[350px] h-[70px] outline-none text-[36px] py-[12px] px-[12px] bg-background ${
+          selected == "" ? "text-unfilled" : "text-white"
+        } ${label ? "mt-[13px]" : ""}`}
       >
         <option value="" disabled={!selected}>
           {placeholder}

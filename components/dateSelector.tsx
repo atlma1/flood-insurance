@@ -17,7 +17,7 @@ const DateSelector: React.FC<DateSelectorProps> = ({
     <div className="">
       {label && <Label label={label} />}
       <div
-        className={`flex flex-row items-center rounded-[17px] w-[180px] h-[53px] py-[12px] pl-[14px] mt-[13px] bg-background`}
+        className={`flex flex-row items-center rounded-[17px] w-[180px] h-[70px] py-[12px] pl-[14px] mt-[10px] bg-background`}
       >
         {/* <Image
         src={
@@ -34,7 +34,7 @@ const DateSelector: React.FC<DateSelectorProps> = ({
           type="date"
           onChange={(e) => setValue(e.target.value)}
           placeholder={placeholder}
-          className={` placeholder-unfilled bg-transparent h-[100%] w-[86%] font-inter outline-none text-white }`}
+          className={` placeholder-unfilled bg-transparent h-[100%] w-[86%] font-inter outline-none text-white text-[20px] }`}
         />
       </div>
     </div>

@@ -9,24 +9,29 @@ import { useFormikContext, FormikValues } from "formik";
 import Dropdown from "../../../components/dropdown";
 
 const UnitSelectPage = () => {
-  const [yesOrNo, setYesOrNo] = useState<number>(-1);
   const router = useRouter();
   const { values, setFieldValue } = useFormikContext<FormikValues>();
+  const [yesOrNo, setYesOrNo] = useState<number>(
+    values.numberOfUnits > 0 ? 0 : 1
+  );
     const occupanyStatusOptions = [
       "Owner occupied",
-      "Rented",
+      "Rental",
       "Vacant",
       "N/A",
       "Other",
     ];
 
   const onContinue = () => {
+    if (yesOrNo == 1) {
+      setFieldValue("numberOfUnits", 0);
+    }
     router.push("./insurableValue");
   };
 
   return (
     <div>
-      <Title title="Is this a condo with multiple units?" />
+      <Title title="Is this a condo?" />
       <YesOrNo
         type="Yes"
         styles="mt-[49px]"
@@ -54,7 +59,7 @@ const UnitSelectPage = () => {
           label="Number of units"
           value={values.numberOfUnits}
           setValue={(value) => setFieldValue("numberOfUnits", value)}
-          styles="mt-[49px]"
+          styles="mt-[44px]"
           unit="units"
         />
       )}

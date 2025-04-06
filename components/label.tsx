@@ -5,9 +5,9 @@ interface LabelProps {
   styles?: string;
 }
 
-const Label:FC<LabelProps> = ({ label, styles }) => {
+const Label: FC<LabelProps> = ({ label, styles }) => {
   return (
-    <p className={` font-inter font-normal text-[27px] ${styles}`}>{label}</p>
+    <p className={` font-inter font-normal text-[36px] ${styles}`}>{label}</p>
   );
 };
 

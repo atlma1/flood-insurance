@@ -17,13 +17,13 @@ const ProgressBar: FC<ProgressBarProps> = ({ progress, totalPages }) => {
   return (
     <div className="flex-row flex items-center absolute bottom-10 gap-6">
       {progress > 1 && progress < totalPages && (
-        <div className="flex-row flex bg-background p-[11px] rounded-[19px] gap-[10px]">
+        <div className="flex-row flex bg-background p-[17px] rounded-[25px] gap-[15px]">
           <button onClick={onBack}>
             <Image
               src="/icons/chevronIcon.svg"
               alt="chevron"
-              width={16}
-              height={16}
+              width={26}
+              height={26}
               className="rotate-90"
             />
           </button>
@@ -31,13 +31,13 @@ const ProgressBar: FC<ProgressBarProps> = ({ progress, totalPages }) => {
           <Image
             src="/icons/chevronIcon.svg"
             alt="chevron"
-            width={16}
-            height={16}
+            width={26}
+            height={26}
             className="-rotate-90"
           />
         </div>
       )}
-      <div className="rounded-[12px] bg-background h-[12px] w-[598px]">
+      <div className="rounded-[12px] bg-background h-[12px] w-[800px]">
         <div
           style={{
             width: `${(progress / totalPages) * 100}%`,
@@ -47,7 +47,7 @@ const ProgressBar: FC<ProgressBarProps> = ({ progress, totalPages }) => {
           }}
         />
       </div>
-      <p className=" font-inter font-normal">{progress + "/" + totalPages}</p>
+      <p className=" font-inter font-normal text-[30px]">{progress + "/" + totalPages}</p>
     </div>
   );
 };

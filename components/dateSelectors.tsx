@@ -23,17 +23,23 @@ const DateSelectors: React.FC<DateSelectors> = ({
   return (
     <div className="flex flex-col ">
       {label && <Label label={label} />}
-      <div className="flex flex-row gap-[20px]">
-        <DateSelector
-          value={startDate}
-          setValue={setStartDate}
-          placeholder="Start Date"
-        />
-        <DateSelector
-          value={endDate}
-          setValue={setEndDate}
-          placeholder="End Date"
-        />
+      <div className="flex flex-row gap-[20px] mt-[15px]">
+        <div>
+          <p className={`font-inter font-normal text-[20px]`}>Start Date</p>
+          <DateSelector
+            value={startDate}
+            setValue={setStartDate}
+            placeholder="Start Date"
+          />
+        </div>
+        <div>
+          <p className={`font-inter font-normal text-[20px]`}>End Date</p>
+          <DateSelector
+            value={endDate}
+            setValue={setEndDate}
+            placeholder="End Date"
+          />
+        </div>
       </div>
     </div>
   );
