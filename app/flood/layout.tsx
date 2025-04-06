@@ -17,19 +17,20 @@ const FloodLayout: FC<FloodLayoutProps> = ({ children }) => {
   const [progress, setProgress] = useState(1);
   const path = usePathname();
   const [contentInsured, setContentInsured] = useState<boolean>(false);
-  const [totalPages, setTotalPages] = useState<number>(9);
+  const [totalPages, setTotalPages] = useState<number>(10);
 
   const routeMap: { [key: string]: number } = {
     "/flood/propertyType": 1,
     "/flood/floodZone": 2,
-    "/flood/unitSelect": 3,
-    "/flood/insurableValue": 4,
-    "/flood/insurableContent": 5,
-    "/flood/loanDetails": 5 + (contentInsured ? 1 : 0),
-    "/flood/requiredCoverage": 6 + (contentInsured ? 1 : 0),
-    "/flood/insuranceProviders": 7 + (contentInsured ? 1 : 0),
-    "/flood/moreDetails": 8 + (contentInsured ? 1 : 0),
-    "/flood/complete": 9 + (contentInsured ? 1 : 0),
+    "/flood/NFIPDetails": 3,
+    "/flood/unitSelect": 4,    
+    "/flood/insurableValue": 5,
+    "/flood/insurableContent": 6,
+    "/flood/loanDetails": 6 + (contentInsured ? 1 : 0),
+    "/flood/requiredCoverage": 7 + (contentInsured ? 1 : 0),
+    "/flood/insuranceProviders": 8 + (contentInsured ? 1 : 0),
+    "/flood/moreDetails": 9 + (contentInsured ? 1 : 0),
+    "/flood/complete": 10 + (contentInsured ? 1 : 0),
   };
 
   useEffect(() => {

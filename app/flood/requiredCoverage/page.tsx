@@ -12,10 +12,14 @@ import { number } from "yup";
 
 const RequiredCoveragePage = () => {
   const policyOptions = ["NFIP Policy", "Private Policy"];
-  const { values, setFieldValue } = useFormikContext<FormikValues>();
+  const { values, setFieldValue, errors } = useFormikContext<FormikValues>();
   const router = useRouter();
-  const requiredCoverageAmount =
+  const initialCoverageAmount =
     values.propertyType == "Residential" ? 250000 : 500000;
+  const requiredCoverageAmount =
+    values.numberOfUnits > 1
+      ? initialCoverageAmount * values.numberOfUnits
+      : initialCoverageAmount;
 
   const onContinue = (coverageAmount: number) => {
     if (coverageAmount < requiredCoverageAmount) {
@@ -27,13 +31,7 @@ const RequiredCoveragePage = () => {
     }
   };
 
-  useEffect(() => {
-    if (values.policyDetails.typeOfCoverage == "Private Policy") {
-      alert(
-        'A private policy must have the following statement in the policy or be sent to a consultant for review: "This policy meets the definition of private flood insurance contained in 42 U.S.C. 4012a(b)(7) and the corresponding regulation"'
-      );
-    }
-  }, [values.policyDetails.typeOfCoverage]);
+  console.log('errors', errors.policyDetails);
 
   return (
     <div>
@@ -47,9 +45,14 @@ const RequiredCoveragePage = () => {
           label="Borrower's type of policy obtained"
           options={policyOptions}
           selected={values.policyDetails.typeOfCoverage}
-          setSelected={(value) =>
-            setFieldValue("policyDetails.typeOfCoverage", value)
-          }
+          setSelected={(value) => {
+            setFieldValue("policyDetails.typeOfCoverage", value);
+            if (value == "Private Policy") {
+              alert(
+                'A private policy must have the following statement in the policy or be sent to a consultant for review: "This policy meets the definition of private flood insurance contained in 42 U.S.C. 4012a(b)(7) and the corresponding regulation"'
+              );
+            }
+          }}
           placeholder="Select policy type"
           styles="mt-[41px]"
         />
@@ -62,20 +65,22 @@ const RequiredCoveragePage = () => {
           unit="USD"
         />
         <DateSelectors
-          startDate={values.policyDetails.startDate}
+          startDate={values.policyDetails.coverageStartDate}
           setStartDate={(value) =>
-            setFieldValue("policyDetails.startDate", value)
+            setFieldValue("policyDetails.coverageStartDate", value)
           }
-          endDate={values.policyDetails.endDate}
-          setEndDate={(value) => setFieldValue("policyDetails.endDate", value)}
+          endDate={values.policyDetails.coverageEndDate}
+          setEndDate={(value) =>
+            setFieldValue("policyDetails.coverageEndDate", value)
+          }
           label="Coverage dates"
         />
-        {values.policyDetails.typeOfCoverage != "" &&
-          values.policyDetails.coverageAmount != 0 &&
-          values.policyDetails.startDate != "" &&
-          values.policyDetails.endDate != "" && (
-            <Button label="Continue" onClick={() => onContinue(values.policyDetails.coverageAmount)} />
-          )}
+        {!errors.policyDetails && (
+          <Button
+            label="Continue"
+            onClick={() => onContinue(values.policyDetails.coverageAmount)}
+          />
+        )}
       </div>
     </div>
   );

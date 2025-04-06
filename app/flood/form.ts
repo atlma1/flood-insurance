@@ -4,6 +4,11 @@ export type formType = {
     floodZone: string;
     address: string;
   }[];
+  NFIPDetails: {
+    NFIPMapNumber: string;
+    NFIPMapEffectiveDate: string;
+    letterMapChange: boolean;
+  }
   numberOfUnits: number;
   insurableValue: {
     totalAppraisalValue: number;
@@ -30,7 +35,7 @@ export type formType = {
   };
   policyDetails: {
     RequiredCoverage: number;
-    typeOfCoverage: "NFIP" | "Private" | "";
+    typeOfCoverage: "NFIP Policy" | "Private Policy" | "";
     coverageAmount: number;
     coverageStartDate: string;
     coverageEndDate: string;
@@ -47,6 +52,11 @@ export type formType = {
 export const emptyForm: formType = {
   propertyType: "",
   FEMA: [],
+  NFIPDetails: {
+    NFIPMapNumber: "",
+    NFIPMapEffectiveDate: "",
+    letterMapChange: false,
+  },
   numberOfUnits: 0,
   insurableValue: {
     totalAppraisalValue: 0,

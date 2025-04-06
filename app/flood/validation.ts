@@ -4,7 +4,35 @@ export const formValidationSchema = Yup.object({
   propertyType: Yup.string()
     .oneOf(["residential", "commercial", ""])
     .required("Property type is required"),
-  floodZone: Yup.string().required("Flood zone is required"),
+  NFIPDetails: Yup.object({
+    NFIPMapNumber: Yup.string().required("NFIP Map Number is required"),
+    NFIPMapEffectiveDate: Yup.string().required(
+      "NFIP Map Effective Date is required"
+    ),
+    letterMapChange: Yup.boolean().required(
+      "Letter of Map Change status is required"
+    ),
+  }),
+  FEMA: Yup.array().of(
+    Yup.object().shape(
+      {
+        floodZone: Yup.string().when("address", {
+          is: (address: string) => !address || address.trim() === "",
+          then: (schema) =>
+            schema.required("Either flood zone or address is required"),
+          otherwise: (schema) => schema,
+        }),
+        address: Yup.string().when("floodZone", {
+          is: (floodZone: string) => !floodZone || floodZone.trim() === "",
+          then: (schema) =>
+            schema.required("Either flood zone or address is required"),
+          otherwise: (schema) => schema,
+        }),
+      },
+      [["floodZone", "address"]]
+    )
+  ),
+
   numberOfUnits: Yup.number()
     .positive("Number of units must be a positive number")
     .required("Number of units is required"),
@@ -74,11 +102,8 @@ export const formValidationSchema = Yup.object({
     ),
   }),
   policyDetails: Yup.object({
-    RequiredCoverage: Yup.number()
-      .positive("Required coverage must be a positive number")
-      .required("Required coverage is required"),
     typeOfCoverage: Yup.string()
-      .oneOf(["NFIP", "Private"])
+      .oneOf(["NFIP Policy", "Private Policy"])
       .required("Type of coverage is required"),
     coverageAmount: Yup.number()
       .positive("Coverage amount must be a positive number")

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { useFormikContext, FormikValues } from "formik";
 
 const LoanDetailsPage = () => {
-  const { values, setFieldValue } = useFormikContext<FormikValues>();
+  const { values, setFieldValue, errors } = useFormikContext<FormikValues>();
   const router = useRouter();
 
   const addLienAmount = () => {
@@ -85,7 +85,7 @@ const LoanDetailsPage = () => {
           add another
         </p>
       </button>
-      {values.loanDetails.loanAmount > 0 && (
+      {!errors.loanDetails && (
         <Button label="Continue" onClick={onContinue} styles="mt-[49px]" />
       )}
     </div>

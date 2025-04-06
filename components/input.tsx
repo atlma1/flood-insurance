@@ -23,7 +23,7 @@ const Input: FC<InputProps> = ({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
-        className={`flex flex-row items-center rounded-[17px] w-[246px] h-[53px] py-[12px] pl-[14px] bg-background ${
+        className={`flex flex-row items-center rounded-[17px] w-[300px] h-[70px] py-[12px] pl-[14px] bg-background text-[36px] ${
           value == "" ? "text-unfilled" : "text-white"
         } ${styles} ${label ? "mt-[13px]" : ""}`}
       />

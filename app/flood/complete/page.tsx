@@ -4,7 +4,7 @@ import Button from "../../../components/button";
 import Title from "../../../components/title";
 import Image from "next/image";
 import { useFormikContext } from "formik";
-import { formType } from "../form";
+import { emptyForm, formType } from "../form";
 
 const CompletePage = () => {
   const router = useRouter();
@@ -51,8 +51,10 @@ const CompletePage = () => {
   };
 
   const onRestart = () => {
-    resetForm();
-    router.push("./propertyType");
+    resetForm({ values: emptyForm });
+    setTimeout(() => {
+      router.push("./propertyType");
+    }, 0);
   };
 
   return (

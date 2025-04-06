@@ -49,7 +49,7 @@ const FloodZonePage = () => {
   };
 
   const handleContinue = () => {
-    router.push("./unitSelect");
+    router.push("./NFIPDetails");
   };
 
   // Calculate height for the OrDivider based on number of entries
@@ -62,7 +62,7 @@ const FloodZonePage = () => {
 
   return (
     <div className="flex flex-col">
-      <Title title="Enter your flood zone" />
+      <Title title="Enter your flood zone"/>
 
       <div className="flex flex-row justify-center mt-[30px] gap-[26px]">
         {/* Left column - Flood Zone Dropdowns */}
@@ -75,6 +75,7 @@ const FloodZonePage = () => {
                 setSelected={(value) => {
                   const newFloodZones = [...values.FEMA];
                   newFloodZones[index].floodZone = value;
+                  console.log("newFloodZones", newFloodZones);
                   setFieldValue("FEMA", newFloodZones);
                 }}
                 placeholder="Select flood zone"
@@ -135,7 +136,7 @@ const FloodZonePage = () => {
         </p>
       </button>
 
-      {!errors.floodZone && values.FEMA?.length > 0 && (
+      {!errors.FEMA && values.FEMA?.length > 0 && (
         <div className="w-[100%] flex justify-center">
           <Button
             label="Continue"
