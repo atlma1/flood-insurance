@@ -38,23 +38,23 @@ const FloodLayout: FC<FloodLayoutProps> = ({ children }) => {
   }, [path]);
 
   // Load initial form state from localStorage
-  const loadFormState = () => {
-    const savedState = localStorage.getItem("formikState");
-    return savedState ? JSON.parse(savedState) : emptyForm;
-  };
+  // const loadFormState = () => {
+  //   const savedState = localStorage.getItem("formikState");
+  //   return savedState ? JSON.parse(savedState) : emptyForm;
+  // };
 
   // Create a ref to store formik values
   const formikValuesRef = useRef(null);
 
   // This effect will run when formikValuesRef.current changes
-  useEffect(() => {
-    if (formikValuesRef.current) {
-      localStorage.setItem(
-        "formikState",
-        JSON.stringify(formikValuesRef.current)
-      );
-    }
-  }, [formikValuesRef.current]);
+  // useEffect(() => {
+  //   if (formikValuesRef.current) {
+  //     localStorage.setItem(
+  //       "formikState",
+  //       JSON.stringify(formikValuesRef.current)
+  //     );
+  //   }
+  // }, [formikValuesRef.current]);
 
   return (
     <div className="relative items-center flex flex-col pb-[150px] min-h-screen w-screen">
@@ -66,7 +66,8 @@ const FloodLayout: FC<FloodLayoutProps> = ({ children }) => {
         className="absolute -z-10 top-0"
       />
       <Formik
-        initialValues={loadFormState()}
+        // initialValues={loadFormState()}
+        initialValues={emptyForm}
         validationSchema={formValidationSchema}
         // the submit function is in complete page
         onSubmit={() => {}}
@@ -74,7 +75,7 @@ const FloodLayout: FC<FloodLayoutProps> = ({ children }) => {
       >
         {(formikProps) => {
           // Update the ref instead of using hooks directly
-          formikValuesRef.current = formikProps.values;
+          // formikValuesRef.current = formikProps.values;
 
           return (
             <Form>
