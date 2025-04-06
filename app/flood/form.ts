@@ -1,8 +1,10 @@
 export type formType = {
   propertyType: "residential" | "commercial" | "";
-  floodZone: string;
-  address: string;
-  NumberOfUnits: number;
+  FEMA: {
+    floodZone: string;
+    address: string;
+  }[];
+  numberOfUnits: number;
   insurableValue: {
     totalAppraisalValue: number;
     appraisedLandValue: number;
@@ -14,7 +16,7 @@ export type formType = {
       | "Vacant"
       | "N/A"
       | "Other"
-    | "";
+      | "";
     contentInsured: boolean;
   };
   contentInsurance: {
@@ -44,9 +46,8 @@ export type formType = {
 
 export const emptyForm: formType = {
   propertyType: "",
-  floodZone: "",
-  address: "",
-  NumberOfUnits: 0,
+  FEMA: [],
+  numberOfUnits: 0,
   insurableValue: {
     totalAppraisalValue: 0,
     appraisedLandValue: 0,

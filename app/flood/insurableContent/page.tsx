@@ -5,6 +5,7 @@ import Title from "../../../components/title";
 import DateSelectors from "../../../components/dateSelectors";
 import Button from "../../../components/button";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const InsurableContentPage = () => {
   const { values, setFieldValue } = useFormikContext<FormikValues>();
@@ -12,6 +13,8 @@ const InsurableContentPage = () => {
   const onContinue = () => {
     router.push("./loanDetails");
   };
+
+  
 
   return (
     <div className="flex flex-col gap-[44px]">

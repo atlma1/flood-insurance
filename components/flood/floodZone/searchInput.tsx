@@ -21,7 +21,7 @@ const SearchInput: FC<SearchInputProps> = ({
     <div>
       {label && <Label label={label} />}
       <div
-        className={`flex flex-row items-center rounded-[17px] w-[246px] h-[53px] py-[12px] pl-[14px] mt-[13px] bg-background ${
+        className={`flex flex-row items-center rounded-[17px] w-[400px] h-[7-px] py-[12px] pl-[14px] mt-[13px] bg-background ${
           label ? "mt-[13px]" : ""
         } ${styles}`}
       >
@@ -29,7 +29,7 @@ const SearchInput: FC<SearchInputProps> = ({
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder={placeholder}
-          className={` placeholder-unfilled bg-transparent h-[100%] w-[86%] font-inter outline-none text-white
+          className={` placeholder-unfilled bg-transparent h-[100%] w-[86%] font-inter outline-none text-white text-[36px]
         }`}
         />
         <button onClick={() => onSearch(value)}>

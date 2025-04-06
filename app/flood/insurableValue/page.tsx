@@ -16,6 +16,7 @@ const InsurableValuePage = () => {
 
   const router = useRouter();
   const [contentInsured, setContentInsured] = useState<boolean>(false);
+  
 
   const onContinue = () => {
     if (contentInsured) {
@@ -111,7 +112,7 @@ const InsurableValuePage = () => {
         </div>
       </div>
       <div className="w-full flex flex-col items-center mt-[49px]">
-        {((values.insurableValue.totalAppraisalValue > 0 &&
+        {((values.insurableValue.totalAppraisalValue > 0 ||
           values.insurableValue.appraisedLandValue > 0) ||
           values.insurableValue.hazardPolicyReplacementCost > 0 ||
           values.insurableValue.agentProvidedInsurableValue > 0) && (

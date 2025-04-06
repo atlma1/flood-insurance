@@ -46,7 +46,7 @@ const LoanDetailsPage = () => {
           <div className="relative">
             <NumberInput
               key={index}
-              label={`Superior lien amount ${
+              label={`${index + 1}. Superior lien amount ${
                 index == 0 ? "(if applicable)" : ""
               }`}
               value={amount}
@@ -58,7 +58,7 @@ const LoanDetailsPage = () => {
               unit="USD"
               styles="mt-[44px]"
             />
-            <button className="absolute top-[69px] -left-[35px]"
+            <button className="absolute top-[93px] -left-[35px]"
             onClick={() => removeLienAmount(index)}
             >
               <Image

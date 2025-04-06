@@ -20,7 +20,7 @@ const Dropdown: FC<DropdownProps> = ({
 }) => {
   return (
     <div className={`${styles}`}>
-      {label && <Label label={label} />}
+      {label && <Label label={label} styles="whitespace-nowrap" />}
       <select
         value={selected}
         onChange={(e) => setSelected(e.target.value)}
